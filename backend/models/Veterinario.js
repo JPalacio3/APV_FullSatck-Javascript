@@ -44,11 +44,15 @@ const veterinarioSchema = mongoose.Schema( {
 // Hashear el password antes de que se almacene en la base de datos
 veterinarioSchema.pre( 'save', async function ( next ) {
     if ( !this.isModified( 'password' ) ) {
-        next();
+        return next();
     }
     const salt = await bcrypt.genSalt( 10 );
     this.password = await bcrypt.hash( this.password, salt );
 } );
+
+veterinarioSchema.methods.comprobarPassword = async function ( passwordFormulario ) {
+    return await bcrypt.compare( passwordFormulario, this.password );
+};
 
 // Registramos en mongoose el Modelo para poder exportarlo y registramos el modelo
 const Veterinario = mongoose.model( 'Veterinario', veterinarioSchema );
