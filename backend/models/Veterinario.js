@@ -1,5 +1,6 @@
 // Importamos mongoose para usar sus propiedades en la creación del modelo
 import mongoose from "mongoose";
+import generarId from "../helpers/generarId.js";
 
 // Creamos la estructura del modelo para interactuar en la base de datos
 const veterinarioSchema = mongoose.Schema( {
@@ -30,7 +31,8 @@ const veterinarioSchema = mongoose.Schema( {
         trim: true
     },
     token: {
-        type: String
+        type: String,
+        default: generarId()
     },
     confirmado: {
         type: Boolean,
