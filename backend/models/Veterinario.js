@@ -1,5 +1,6 @@
 // Importamos mongoose para usar sus propiedades en la creación del modelo
 import mongoose from "mongoose";
+import bcrypt from 'bcrypt';
 import generarId from "../helpers/generarId.js";
 
 // Creamos la estructura del modelo para interactuar en la base de datos
@@ -38,6 +39,15 @@ const veterinarioSchema = mongoose.Schema( {
         type: Boolean,
         default: false
     }
+} );
+
+// Hashear el password antes de que se almacene en la base de datos
+veterinarioSchema.pre( 'save', async function ( next ) {
+    if ( !this.isModified( 'password' ) ) {
+        next();
+    }
+    const salt = await bcrypt.genSalt( 10 );
+    this.password = await bcrypt.hash( this.password, salt );
 } );
 
 // Registramos en mongoose el Modelo para poder exportarlo y registramos el modelo
