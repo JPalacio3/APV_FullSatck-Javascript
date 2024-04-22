@@ -1,5 +1,6 @@
 import Veterinario from "../models/Veterinario.js";
 import generarJWT from "../helpers/generarJWT.js";
+import generarId from "../helpers/generarId.js";
 // import chechAuth from "../middleware/authMiddleware.js";
 
 const registrar = async ( req, res ) => {
@@ -25,7 +26,6 @@ const registrar = async ( req, res ) => {
 
 const perfil = ( req, res ) => {
     const { veterinario } = req;
-
     res.json( { veterinario } );
 };
 
@@ -75,14 +75,61 @@ const autenticar = async ( req, res ) => {
     }
 };
 
-const olvidePassword = ( req, res ) => {
+const olvidePassword = async ( req, res ) => {
+    const { email } = req.body;
+    const existeVeterinario = await Veterinario.findOne( { email } );
+    if ( !existeVeterinario ) {
+        const error = new Error( 'El Usuario NO Existe' );
+        return res.status( 400 ).json( { msg: error.message } );
+    }
 
+    try {
+        existeVeterinario.token = generarId();
+        await existeVeterinario.save();
+        res.json( { msg: 'Hemos enviado un Email con las instucciones' } );
+    } catch ( error ) {
+        console.log( error );
+    };
 };
+
+const comprobarToken = async ( req, res ) => {
+    const { token } = req.params;
+    const tokenValido = await Veterinario.findOne( { token } );
+    if ( tokenValido ) {
+        // El token es válido, el usuario existe
+        res.json( { msg: 'Token Válido y el usuario existe' } );
+    } else {
+        const error = new Error( 'Token NO válido' );
+        return res.status( 400 ).json( { msg: error.message } );
+    }
+}
+
+const nuevoPassword = async ( req, res ) => {
+    const { token } = req.params;
+    const { password } = req.body;
+    const veterinario = await Veterinario.findOne( { token } );
+
+    if ( !veterinario ) {
+        const error = new Error( 'Hubo un error' );
+        return res.status( 400 ).json( { msg: error.message } );
+    }
+
+    try {
+        veterinario.token = null;
+        veterinario.password = password;
+        await veterinario.save();
+        res.json( { msg: 'El Password se ha cambiado exitosamente' } );
+    } catch ( error ) {
+        console.log( error );
+    }
+}
 
 export {
     registrar,
     perfil,
     confirmar,
     autenticar,
-    olvidePassword
+    olvidePassword,
+    comprobarToken,
+    nuevoPassword
 }
