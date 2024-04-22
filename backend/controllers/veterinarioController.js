@@ -1,5 +1,6 @@
 import Veterinario from "../models/Veterinario.js";
-import generarJWT from "../helpers/generarJWT.js"
+import generarJWT from "../helpers/generarJWT.js";
+// import chechAuth from "../middleware/authMiddleware.js";
 
 const registrar = async ( req, res ) => {
     const { nombre, email, password } = req.body;
@@ -23,7 +24,9 @@ const registrar = async ( req, res ) => {
 };
 
 const perfil = ( req, res ) => {
-    res.json( { msg: 'Mostrando Perfil' } );
+    const { veterinario } = req;
+
+    res.json( { veterinario } );
 };
 
 const confirmar = async ( req, res ) => {
@@ -72,10 +75,14 @@ const autenticar = async ( req, res ) => {
     }
 };
 
+const olvidePassword = ( req, res ) => {
+
+};
 
 export {
     registrar,
     perfil,
     confirmar,
-    autenticar
+    autenticar,
+    olvidePassword
 }
