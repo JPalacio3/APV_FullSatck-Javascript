@@ -4,10 +4,10 @@ import generarId from "../helpers/generarId.js";
 // import chechAuth from "../middleware/authMiddleware.js";
 
 const registrar = async ( req, res ) => {
-    const { nombre, email, password } = req.body;
+    const { email } = req.body;
 
     // Prevenir usuarios duplicados
-    const existeUsuario = await Veterinario.findOne( { email: email } );
+    const existeUsuario = await Veterinario.findOne( { email } );
 
     if ( existeUsuario ) {
         const error = new Error( 'El usuario ya se encuentra registrado' );
@@ -18,7 +18,7 @@ const registrar = async ( req, res ) => {
         // GUARDAR UN NUEVO VETERINARIO
         const veterinario = new Veterinario( req.body );
         const veterinarioGuardado = await veterinario.save();
-        res.json( veterinarioGuardado );
+        res.json( { veterinarioGuardado } );
     } catch ( error ) {
         console.log( error );
     }
