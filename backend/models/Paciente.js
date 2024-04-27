@@ -13,9 +13,10 @@ const pacienteSchema = mongoose.Schema( {
         type: String,
         required: true
     },
-    fecha_alta: {
+    fecha: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now()
     },
     sintomas: {
         type: String,
@@ -27,7 +28,7 @@ const pacienteSchema = mongoose.Schema( {
     },
 },
     {
-        timestamps: true,
+        timestamps: true
     } );
 
 const Paciente = mongoose.model( "Paciente", pacienteSchema );
