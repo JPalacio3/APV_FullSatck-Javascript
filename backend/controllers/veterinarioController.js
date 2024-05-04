@@ -10,7 +10,7 @@ const registrar = async ( req, res ) => {
     const existeUsuario = await Veterinario.findOne( { email } );
 
     if ( existeUsuario ) {
-        const error = new Error( 'El usuario ya se encuentra registrado' );
+        const error = new Error( "El usuario ya se encuentra registrado" );
         return res.status( 400 ).json( { msg: error.message } );
     }
 

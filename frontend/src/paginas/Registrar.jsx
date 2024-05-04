@@ -1,6 +1,53 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { Alerta } from "../components/Alerta";
 
 export const Registrar = () => {
+
+    const [ nombre, setNombre ] = useState( '' );
+    const [ email, setEmail ] = useState( '' );
+    const [ password, setPassword ] = useState( '' );
+    const [ repetirPassword, setRepetirPassword ] = useState( '' );
+    const [ alerta, setAlerta ] = useState( {} );
+
+    const handleSubmit = async ( e ) => {
+        e.preventDefault();
+
+        if ( [ nombre, email, password, repetirPassword ].includes( '' ) ) {
+            setAlerta( { msg: 'Hay campos vacios', error: true } );
+            return;
+        }
+        if ( password !== repetirPassword ) {
+            setAlerta( { msg: 'Las Contraseñas NO son iguales', error: true } );
+            return;
+        }
+
+        if ( password.length < 6 ) {
+            setAlerta( { msg: 'La Contraseña es muy corta, escribe al menos 6 caracteres', error: true } );
+            return;
+        }
+
+        setAlerta( {} );
+
+        // Crear el Usuario en la API
+        try {
+            const url = "http://localhost:4000/api/veterinarios";
+            await axios.post( url, { nombre, email, password } );
+            setAlerta( {
+                msg: 'Usuario Creado Correctamente, Revisa tu email para confirmar tu cuenta',
+                error: false
+            } )
+        } catch ( error ) {
+            setAlerta( {
+                msg: error.response.data.msg,
+                error: true
+            } )
+        }
+    }
+
+    const { msg } = alerta;
+
     return (
         <>
             <div>
@@ -9,7 +56,16 @@ export const Registrar = () => {
             </div>
 
             <div className='mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white'>
-                <form action="">
+
+                {msg && <Alerta
+                    alerta={alerta}
+                />
+                }
+
+                <form
+                    action=""
+                    onSubmit={handleSubmit}
+                >
 
                     <div className="my-5">
                         <label
@@ -20,6 +76,8 @@ export const Registrar = () => {
                             type="text"
                             placeholder="Tu Nombre"
                             className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={nombre}
+                            onChange={e => setNombre( e.target.value )}
                         />
                     </div>
 
@@ -32,6 +90,8 @@ export const Registrar = () => {
                             type="email"
                             placeholder="Tu Email"
                             className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={email}
+                            onChange={e => setEmail( e.target.value )}
                         />
                     </div>
 
@@ -44,6 +104,8 @@ export const Registrar = () => {
                             type="password"
                             placeholder="Crea una Contraseña"
                             className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={password}
+                            onChange={e => setPassword( e.target.value )}
                         />
                     </div>
 
@@ -56,6 +118,8 @@ export const Registrar = () => {
                             type="password"
                             placeholder="Repetir Contraseña"
                             className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={repetirPassword}
+                            onChange={e => setRepetirPassword( e.target.value )}
                         />
                     </div>
 
@@ -75,7 +139,6 @@ export const Registrar = () => {
                         className='block text-center my-5 text-gray-600'
                         to="/olvide-password"> ¿Olvidaste tu contraseña?</Link>
                 </nav>
-
             </div>
         </>
     )
