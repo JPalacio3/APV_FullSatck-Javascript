@@ -22,7 +22,6 @@ export const Registrar = () => {
             setAlerta( { msg: 'Las Contraseñas NO son iguales', error: true } );
             return;
         }
-
         if ( password.length < 6 ) {
             setAlerta( { msg: 'La Contraseña es muy corta, escribe al menos 6 caracteres', error: true } );
             return;
