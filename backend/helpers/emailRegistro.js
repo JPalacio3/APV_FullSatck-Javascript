@@ -21,7 +21,7 @@ const emailRegistro = async ( datos ) => {
         subject: "Comprueba tu Cuenta en APV",
         text: "Comprueba tu cuenta en APV",
         html: `
-        <h2>Hola ${nombre}, Compruba tu cuenta en APV</h2>
+        <h2>Hola ${nombre}, Comprueba tu cuenta en APV</h2>
         <h3>Tu cuenta ya está lista</h3>
         <p>Solo debes comprobarla dando click en el siguiente enlace: </p>
         <a href="${process.env.FRONTEND_URL}/confirmar/${token}" >COMPROBAR TU CUENTA</a>
@@ -29,8 +29,6 @@ const emailRegistro = async ( datos ) => {
         <p>Si tú no solicitaste crear esta cuenta, puedes ignorar este mensaje</p>
         `
     } );
-    console.log( 'MENSAJE ENVIADO' )
-
 }
 
 export default emailRegistro;
