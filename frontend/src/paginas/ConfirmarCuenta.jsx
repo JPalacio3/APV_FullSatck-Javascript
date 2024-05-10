@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Alerta } from "../components/Alerta";
-import clienteAxios from '../config/axios.jsx'
+import clienteAxios from '../config/axios.jsx';
 
 export const ConfirmarCuenta = () => {
     const [ cuentaConfirmada, setCuentaConfirmada ] = useState( false );
@@ -15,7 +15,7 @@ export const ConfirmarCuenta = () => {
         const confirmarCuenta = async () => {
             try {
                 const url = `/veterinarios/confirmar/${id}`;
-                const { data } = await clienteAxios( url );
+                const { data } = await clienteAxios.get( url );
                 setCuentaConfirmada( true );
                 setAlerta( {
                     msg: data.msg
@@ -24,10 +24,10 @@ export const ConfirmarCuenta = () => {
                 setAlerta( {
                     msg: error.response.data.msg,
                     error: true
-                } )
+                } );
             }
-            setCargando( false )
-        }
+            setCargando( false );
+        };
         confirmarCuenta();
     }, [ id ] );
 
@@ -41,10 +41,11 @@ export const ConfirmarCuenta = () => {
             </div>
 
             <div className='mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white'>
-                {!cargando &&
+                {!cargando && (
                     <Alerta
                         alerta={alerta}
-                    />}
+                    />
+                )}
 
                 {cuentaConfirmada && (
                     <Link
@@ -54,7 +55,7 @@ export const ConfirmarCuenta = () => {
                 )}
             </div>
         </>
-    )
+    );
 };
 
 export default ConfirmarCuenta;
