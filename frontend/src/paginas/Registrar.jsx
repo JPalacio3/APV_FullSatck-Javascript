@@ -37,6 +37,7 @@ export const Registrar = () => {
                 msg: 'Usuario Creado Correctamente, Revisa tu email para confirmar tu cuenta',
                 error: false
             } )
+            return;
         } catch ( error ) {
             setAlerta( {
                 msg: error.response.data.msg,

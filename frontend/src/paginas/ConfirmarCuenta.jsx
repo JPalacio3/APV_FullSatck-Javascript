@@ -20,6 +20,7 @@ export const ConfirmarCuenta = () => {
                 setAlerta( {
                     msg: data.msg
                 } );
+                return;
             } catch ( error ) {
                 setAlerta( {
                     msg: error.response.data.msg,
