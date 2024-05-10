@@ -45,6 +45,7 @@ const confirmar = async ( req, res ) => {
         const error = new Error( "Token no válido" );
         return res.status( 404 ).json( { msg: error.message } );
     }
+
     try {
         usuarioConfirmar.token = null;
         usuarioConfirmar.confirmado = true;
@@ -53,6 +54,8 @@ const confirmar = async ( req, res ) => {
     } catch ( error ) {
         console.log( error );
     }
+
+
 };
 
 const autenticar = async ( req, res ) => {
@@ -102,10 +105,13 @@ const olvidePassword = async ( req, res ) => {
 const comprobarToken = async ( req, res ) => {
     const { token } = req.params;
     const tokenValido = await Veterinario.findOne( { token } );
+
     if ( tokenValido ) {
         // El token es válido, el usuario existe
         res.json( { msg: 'Token Válido y el usuario existe' } );
-    } else {
+    }
+
+    if ( !tokenValido ) {
         const error = new Error( 'Token NO válido' );
         return res.status( 400 ).json( { msg: error.message } );
     }
