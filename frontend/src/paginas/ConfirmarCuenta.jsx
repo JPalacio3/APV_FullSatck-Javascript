@@ -13,6 +13,7 @@ export const ConfirmarCuenta = () => {
 
     useEffect( () => {
         const confirmarCuenta = async () => {
+
             try {
                 const url = `/veterinarios/confirmar/${id}`;
                 const { data } = await clienteAxios.get( url );
@@ -20,7 +21,6 @@ export const ConfirmarCuenta = () => {
                 setAlerta( {
                     msg: data.msg
                 } );
-                return;
             } catch ( error ) {
                 setAlerta( {
                     msg: error.response.data.msg,
@@ -30,7 +30,7 @@ export const ConfirmarCuenta = () => {
             setCargando( false );
         };
         confirmarCuenta();
-    }, [ id ] );
+    }, [] );
 
     return (
         <>
