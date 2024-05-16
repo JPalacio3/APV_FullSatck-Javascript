@@ -9,21 +9,18 @@ export const RutaProtegida = () => {
 
     if ( cargando ) return 'Cargando';
 
-
     return (
         <>
             <Header />
-            {auth?.token ? <Outlet /> : <Navigate to="/" />}
-
-
-
-
+            {auth?.token ?
+                (
+                    <main className="container mx-auto mt-10">
+                        <Outlet />
+                    </main>
+                ) : <Navigate to="/" />
+            }
             <Footer />
-
-
-
         </>
     )
 }
 
-export default RutaProtegida;
