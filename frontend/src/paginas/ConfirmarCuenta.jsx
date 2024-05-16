@@ -27,6 +27,7 @@ export const ConfirmarCuenta = () => {
                     error: true
                 } );
             }
+
             setCargando( false );
         };
         confirmarCuenta();
