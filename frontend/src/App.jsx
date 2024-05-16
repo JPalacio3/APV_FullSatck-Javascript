@@ -19,6 +19,7 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
+
           {/* Área pública */}
           <Route path='/' element={<AuthLayout />}>
             <Route index element={<Login />} />
@@ -29,10 +30,10 @@ function App() {
           </Route >
 
           {/* Área Privada */}
-          <Route path='/admin' element={<RutaProtegida />}>
+          <Route path="/admin" element={<RutaProtegida />}>
             <Route index element={<AdministrarPacientes />} />
           </Route>
-
+          
         </Routes>
       </AuthProvider>
     </BrowserRouter >

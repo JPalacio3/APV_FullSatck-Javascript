@@ -13,7 +13,6 @@ export const ConfirmarCuenta = () => {
 
     useEffect( () => {
         const confirmarCuenta = async () => {
-
             try {
                 const url = `/veterinarios/confirmar/${id}`;
                 const { data } = await clienteAxios.get( url );

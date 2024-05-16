@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Alerta } from '../components/Alerta';
-import clienteAxios from '../config/axios';
 import useAuth from '../hooks/useAuth';
+import clienteAxios from '../config/axios';
 
 export const Login = () => {
 
@@ -25,7 +25,10 @@ export const Login = () => {
         }
 
         try {
-            const { data } = await clienteAxios.post( '/veterinarios/login', { email, password } );
+            // Convertir el email a minúsculas
+            const emailLowerCase = email.toLowerCase();
+
+            const { data } = await clienteAxios.post( '/veterinarios/login', { email: emailLowerCase, password } );
             localStorage.setItem( 'token', data.token );
             setAuth( data );
             navigate( '/admin' );

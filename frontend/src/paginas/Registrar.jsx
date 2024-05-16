@@ -29,10 +29,13 @@ export const Registrar = () => {
 
         setAlerta( {} );
 
+        // Convertir el email a minúsculas
+        const emailLowerCase = email.toLowerCase();
+
         // Crear el Usuario en la API
         try {
             const url = `/veterinarios`;
-            await clienteAxios.post( url, { nombre, email, password } );
+            await clienteAxios.post( url, { nombre, email: emailLowerCase, password } );
             setAlerta( {
                 msg: 'Usuario Creado Correctamente, Revisa tu email para confirmar tu cuenta',
                 error: false
