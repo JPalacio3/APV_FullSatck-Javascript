@@ -6,4 +6,3 @@ export const AdministrarPacientes = () => {
     )
 }
 
-// export default AdministrarPacientes;
