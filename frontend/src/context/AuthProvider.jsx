@@ -1,8 +1,8 @@
-/* eslint-disable react/prop-types */
 import { useState, useEffect, createContext } from "react";
 import clienteAxios from "../config/axios";
 
 const AuthContext = createContext()
+// eslint-disable-next-line react/prop-types
 const AuthProvider = ( { children } ) => {
     const [ cargando, setCargando ] = useState( true );
     const [ auth, setAuth ] = useState( {} );
