@@ -21,6 +21,12 @@ export const Login = () => {
                 msg: 'Todos los Campos son Obligatorios',
                 error: true,
             } );
+
+            setTimeout( () => {
+                setAlerta( {} );
+            }, 1500 );
+
+
             return;
         }
 

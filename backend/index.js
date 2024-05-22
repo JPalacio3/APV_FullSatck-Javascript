@@ -30,5 +30,5 @@ app.use( '/api/pacientes', pacienteRoutes );
 
 const PORT = process.env.PORT || 4000;
 app.listen( PORT, () => {
-    console.log( `servidor funcionando en [ http://127.0.0.1:${PORT}/api/veterinarios/perfil ]` );
+    console.log( `servidor funcionando en [ http://127.0.0.1:${PORT}/api/]` );
 } );
