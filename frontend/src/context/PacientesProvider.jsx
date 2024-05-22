@@ -1,5 +1,5 @@
-import { createContext, useEffect, useState } from "react";
-import clienteAxios from "../config/axios";
+import { createContext, useState, useEffect } from "react";
+import clienteAxios from "../config/axios.jsx";
 
 export const PacientesContext = createContext();
 
@@ -7,6 +7,28 @@ export const PacientesContext = createContext();
 const PacientesProvider = ( { children } ) => {
 
     const [ pacientes, setPacientes ] = useState( [] );
+
+    useEffect( () => {
+        const obtenerPacientes = async () => {
+            try {
+                const token = localStorage.getItem( 'token' );
+                if ( !token ) return;
+
+                const config = {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+
+                const { data } = await clienteAxios.get( '/pacientes', config );
+                setPacientes( data );
+            } catch ( error ) {
+                console.log( error );
+            }
+        }
+        obtenerPacientes();
+    }, [] );
 
     const guardarPaciente = async ( paciente ) => {
         try {
@@ -18,15 +40,11 @@ const PacientesProvider = ( { children } ) => {
                 }
             }
             const { data } = await clienteAxios.post( '/pacientes', paciente, config );
-
             const { createdAt, updatedAt, __v, ...pacienteAlmacenado } = data;
 
             setPacientes( [ pacienteAlmacenado, ...paciente ] );
-
-            console.log( pacienteAlmacenado );
-
         } catch ( error ) {
-            console.log( error.response.data.msg )
+            console.log( error.response.data.msg );
         }
     }
 
