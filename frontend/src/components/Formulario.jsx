@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Alerta } from './Alerta';
 import usePacientes from '../hooks/usePacientes';
 
@@ -9,23 +9,35 @@ export const Formulario = () => {
     const [ email, setEmail ] = useState( '' );
     const [ fecha, setFecha ] = useState( '' );
     const [ sintomas, setSintomas ] = useState( '' );
+    const [ id, setId ] = useState( null )
 
-    const [ alerta, SetAlerta ] = useState( {} );
+    const [ alerta, setAlerta ] = useState( {} );
 
-    const { guardarPaciente } = usePacientes();
+    const { guardarPaciente, paciente } = usePacientes();
+
+    useEffect( () => {
+        if ( paciente?.nombre ) {
+            setNombre( paciente.nombre )
+            setPropietario( paciente.propietario )
+            setEmail( paciente.email )
+            setFecha( paciente.fecha )
+            setSintomas( paciente.sintomas )
+            setId( paciente._id )
+        }
+    }, [ paciente ] )
 
     const handleSubmit = e => {
         e.preventDefault();
 
         // Validar el Formulario
         if ( [ nombre, propietario, email, fecha, sintomas ].includes( '' ) ) {
-            SetAlerta( {
+            setAlerta( {
                 msg: 'Todos los Campos son Obligatorios',
                 error: true
             } );
 
             setTimeout( () => {
-                SetAlerta( {} )
+                setAlerta( {} )
             }, 1500 );
             return;
         }
@@ -40,8 +52,8 @@ export const Formulario = () => {
             <h2 className="font-black text-3xl text-center">
                 Administrador de Pacientes
             </h2>
-            <p className="text-xl mt-5 mb-10 text-center font-bold">Añade Tus Pacientes y {''}
-                <span className="text-indigo-600 font-bold" >Administralos</span>
+            <p className="text-xl mt-5 mb-10 text-center font-bold">Añade Tus {''}
+                <span className="text-indigo-600 font-bold" >Pacientes y Administralos</span>
             </p>
 
             <form
@@ -126,7 +138,7 @@ export const Formulario = () => {
                 <input
                     type="submit"
                     className="bg-indigo-600 hover:bg-indigo-800 w-full p-3 text-white uppercase font-bold cursor-pointer rounded transition-colors"
-                    value="Agregar Paciente"
+                    value={id ? 'Guardar Cambios' : 'Agregar Paciente'}
                 />
             </form>
         </>
