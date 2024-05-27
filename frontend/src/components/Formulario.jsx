@@ -42,7 +42,7 @@ export const Formulario = () => {
             return;
         }
 
-        guardarPaciente( { nombre, propietario, email, fecha, sintomas } )
+        guardarPaciente( { nombre, propietario, email, fecha, sintomas, id } )
     }
 
     const { msg } = alerta;

@@ -12,7 +12,7 @@ export const RutaProtegida = () => {
     return (
         <>
             <Header />
-            {auth?.token ?
+            {auth?._id ?
                 (
                     <main className="container mx-auto mt-10">
                         <Outlet />
