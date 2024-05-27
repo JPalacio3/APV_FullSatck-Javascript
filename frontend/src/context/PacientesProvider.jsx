@@ -44,7 +44,13 @@ const PacientesProvider = ( { children } ) => {
         if ( paciente.id ) {
             try {
                 const { data } = await clienteAxios.put( `/pacientes/${paciente.id}`, paciente, config );
-                console.log( data )
+                const pacienteActualizado = pacientes.map( pacienteState => pacienteState._id === data._id
+                    ? data : pacienteState );
+
+                setPacientes( pacienteActualizado );
+
+
+
             } catch ( error ) {
                 console.log( error )
             }

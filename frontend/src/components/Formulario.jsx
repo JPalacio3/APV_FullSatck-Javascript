@@ -42,7 +42,23 @@ export const Formulario = () => {
             return;
         }
 
-        guardarPaciente( { nombre, propietario, email, fecha, sintomas, id } )
+        guardarPaciente( { nombre, propietario, email, fecha, sintomas, id } );
+
+        // Setear el formulario despúes de los cambios para que quede vacío
+        setNombre( '' );
+        setPropietario( '' );
+        setEmail( '' );
+        setFecha( '' );
+        setSintomas( '' );
+        setId( '' );
+
+        setAlerta( {
+            msg: 'Guardado Correctamente'
+        } );
+        setTimeout( () => {
+            setAlerta( {} )
+        }, 1500 );
+
     }
 
     const { msg } = alerta;
