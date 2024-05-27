@@ -9,7 +9,7 @@ export const Formulario = () => {
     const [ email, setEmail ] = useState( '' );
     const [ fecha, setFecha ] = useState( '' );
     const [ sintomas, setSintomas ] = useState( '' );
-    const [ id, setId ] = useState( null )
+    const [ id, setId ] = useState( null );
 
     const [ alerta, setAlerta ] = useState( {} );
 
