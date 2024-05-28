@@ -48,9 +48,6 @@ const PacientesProvider = ( { children } ) => {
                     ? data : pacienteState );
 
                 setPacientes( pacienteActualizado );
-
-
-
             } catch ( error ) {
                 console.log( error )
             }
@@ -84,7 +81,7 @@ const PacientesProvider = ( { children } ) => {
 
                 const { data } = await clienteAxios.delete( `/pacientes/${id}`, config );
 
-                const pacientesActualizado = pacientes.filter( paceintesState => paceintesState._id !== id );
+                const pacientesActualizado = pacientes.filter( pacientesState => pacientesState._id !== id );
                 setPacientes( pacientesActualizado );
 
             } catch ( error ) {

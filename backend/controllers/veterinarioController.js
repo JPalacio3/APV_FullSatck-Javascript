@@ -152,6 +152,37 @@ const nuevoPassword = async ( req, res ) => {
     }
 }
 
+const actualizarPerfil = async ( req, res ) => {
+    const veterinario = await Veterinario.findById( req.params.id );
+
+    if ( !veterinario ) {
+        const error = new Error( 'Hubo un error al cargar los datos' );
+        return res.status( 400 ).json( { msg: error.message } );
+    }
+
+    const { email } = req.body;
+    if ( veterinario.email !== req.body.email ) {
+        const existeEmail = await Veterinario.findOne( { email } );
+        if ( existeEmail ) {
+            const error = new Error( 'Este Email Ya se encuentra Registrado' );
+            return res.status( 400 ).json( { msg: error.message } );
+        }
+    }
+
+    try {
+        veterinario.nombre = req.body.nombre || veterinario.nombre;
+        veterinario.email = req.body.email || veterinario.email;
+        veterinario.web = req.body.web || veterinario.web;
+        veterinario.telefono = req.body.telefono || veterinario.telefono;
+
+        const veterinarioActualizado = await veterinario.save();
+    } catch ( error ) {
+        new Error( 'Hubo un error al cargar los datos' );
+        return res.status( 400 ).json( { msg: error.message } );
+
+    }
+}
+
 export {
     registrar,
     perfil,
@@ -159,5 +190,6 @@ export {
     autenticar,
     olvidePassword,
     comprobarToken,
-    nuevoPassword
+    nuevoPassword,
+    actualizarPerfil
 }
