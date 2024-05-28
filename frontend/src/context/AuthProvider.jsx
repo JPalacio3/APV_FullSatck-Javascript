@@ -1,59 +1,47 @@
-import { useState, useEffect, createContext } from "react";
-import clienteAxios from "../config/axios";
+import { useState, useEffect, createContext } from 'react';
+import clienteAxios from '../config/axios';
 
-const AuthContext = createContext()
+const AuthContext = createContext();
+
 // eslint-disable-next-line react/prop-types
-const AuthProvider = ( { children } ) => {
-    const [ cargando, setCargando ] = useState( true );
+export const AuthProvider = ( { children } ) => {
     const [ auth, setAuth ] = useState( {} );
+    const [ cargando, setCargando ] = useState( true );
 
     useEffect( () => {
         const autenticarUsuario = async () => {
             const token = localStorage.getItem( 'token' );
 
             if ( !token ) {
-                setCargando( false )
-                return
+                setCargando( false );
+                return;
             }
 
             const config = {
                 headers: {
-                    "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 }
-            }
+            };
 
             try {
                 const { data } = await clienteAxios.get( '/veterinarios/perfil', config );
-                setAuth( data )
+                setAuth( data );
             } catch ( error ) {
-                console.log( error.response.data.msg );
-                setAuth( {} );
+                console.error( "Error al autenticar el usuario:", error );
+                localStorage.removeItem( 'token' );
             }
 
             setCargando( false );
-        }
+        };
+
         autenticarUsuario();
     }, [] );
 
-    const cerrarSesion = () => {
-        localStorage.removeItem( 'token' );
-        setAuth( {} );
-    }
-
     return (
-        <AuthContext.Provider
-            value={{
-                auth, setAuth, cargando, cerrarSesion
-            }}
-        >
-            <>{children}</>
+        <AuthContext.Provider value={{ auth, setAuth, cargando }}>
+            {children}
         </AuthContext.Provider>
     );
-}
-
-export {
-    AuthProvider
-}
+};
 
 export default AuthContext;

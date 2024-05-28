@@ -8,6 +8,8 @@ import { Registrar } from './paginas/Registrar';
 import { OlvidePassword } from './paginas/OlvidePassword';
 import { ConfirmarCuenta } from './paginas/ConfirmarCuenta';
 import { NuevoPassword } from './paginas/NuevoPassword';
+import { EditarPerfil } from './paginas/EditarPerfil';
+import { CambiarPassword } from './paginas/CambiarPassword';
 
 import { AdministrarPacientes } from './paginas/AdministrarPacientes';
 
@@ -33,6 +35,9 @@ function App() {
             {/* Área Privada */}
             <Route path="/admin" element={<RutaProtegida />}>
               <Route index element={<AdministrarPacientes />} />
+              <Route path='perfil' element={<EditarPerfil />} />
+              <Route path='cambiar-password' element={<CambiarPassword />} />
+
             </Route>
           </Routes>
         </PacientesProvider>
