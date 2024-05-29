@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import generarId from "../helpers/generarId.js";
 
 // Creamos la estructura del modelo para interactuar en la base de datos
-const veterinarioSchema = mongoose.Schema( {
+const veterinarioSchema = new mongoose.Schema( {
     nombre: {
         type: String,
         required: true,
@@ -33,7 +33,7 @@ const veterinarioSchema = mongoose.Schema( {
     },
     token: {
         type: String,
-        default: generarId()
+        default: generarId
     },
     confirmado: {
         type: Boolean,
@@ -47,7 +47,8 @@ veterinarioSchema.pre( 'save', async function ( next ) {
         return next();
     }
     const salt = await bcrypt.genSalt( 10 );
-    this.password = bcrypt.hash( this.password, salt );
+    this.password = await bcrypt.hash( this.password, salt );  // Agregado await aquí
+    next();
 } );
 
 veterinarioSchema.methods.comprobarPassword = async function ( passwordFormulario ) {
@@ -59,5 +60,3 @@ const Veterinario = mongoose.model( 'Veterinario', veterinarioSchema );
 
 // Exportamos el modelo
 export default Veterinario;
-
-

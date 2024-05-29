@@ -70,7 +70,8 @@ const AuthProvider = ( { children } ) => {
     }
 
     const guardarPassword = async ( datos ) => {
-        const token = localStorage.getItem( 'token' )
+        const token = localStorage.getItem( 'token' );
+
         if ( !token ) {
             setCargando( false )
             return
