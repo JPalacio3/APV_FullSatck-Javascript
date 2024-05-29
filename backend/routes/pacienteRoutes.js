@@ -8,17 +8,17 @@ import {
     eliminarPaciente
 } from '../controllers/pacienteController.js';
 
-import chechAuth from '../middleware/authMiddleware.js';
+import checkAuth from '../middleware/authMiddleware.js';
 
 
 router.route( '/' )
-    .post( chechAuth, agregarPaciente )
-    .get( chechAuth, obtenerPacientes );
+    .post( checkAuth, agregarPaciente )
+    .get( checkAuth, obtenerPacientes );
 
 router.route( '/:id' )
-    .get( chechAuth, obtenerPaciente )
-    .put( chechAuth, actualizarPaciente )
-    .delete( chechAuth, eliminarPaciente );
+    .get( checkAuth, obtenerPaciente )
+    .put( checkAuth, actualizarPaciente )
+    .delete( checkAuth, eliminarPaciente );
 
 
 

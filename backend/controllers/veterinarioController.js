@@ -198,18 +198,14 @@ const actualizarPassword = async ( req, res ) => {
     // Comprobar su password
     if ( await veterinario.comprobarPassword( pwd_actual ) ) {
         // Almacenar el nuevo password
-
         veterinario.password = pwd_nuevo;
         await veterinario.save();
-        res.json({msg: 'Tu Contraseña se ha cambiado correctamente'})
+        res.json( { msg: 'Tu Contraseña se ha cambiado correctamente' } )
     } else {
         const error = new Error( 'La contraseña Introducida es incorrecta' );
         return res.status( 400 ).json( { msg: error.message } );
     }
-
-    // Almacenar el nuevo password
 }
-
 
 export {
     registrar,

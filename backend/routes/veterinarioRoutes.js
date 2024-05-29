@@ -11,19 +11,18 @@ import {
     actualizarPerfil,
     actualizarPassword
 } from '../controllers/veterinarioController.js';
-import chechAuth from '../middleware/authMiddleware.js';
+import checkAuth from '../middleware/authMiddleware.js';  // Corregido aquí
 
 // Rutas públicas
 router.post( '/', registrar );
 router.get( '/confirmar/:token', confirmar );
 router.post( '/login', autenticar );
 router.post( '/olvide-password', olvidePassword );
-router.route( "/olvide-password/:token" ).get( comprobarToken ).post( nuevoPassword );
-
+router.route( '/olvide-password/:token' ).get( comprobarToken ).post( nuevoPassword );
 
 // Rutas Privadas
-router.get( '/perfil', chechAuth, perfil );
-router.put( '/perfil/:id', chechAuth, actualizarPerfil );
-router.put( '/actualizar-password', chechAuth, actualizarPassword );
+router.get( '/perfil', checkAuth, perfil );  // Corregido aquí
+router.put( '/perfil/:id', checkAuth, actualizarPerfil );  // Corregido aquí
+router.put( '/actualizar-password', checkAuth, actualizarPassword );  // Corregido aquí
 
 export default router;

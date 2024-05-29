@@ -1,7 +1,7 @@
 import Veterinario from '../models/Veterinario.js';
 import jwt from 'jsonwebtoken';
 
-const chechAuth = async ( req, res, next ) => {
+const checkAuth = async ( req, res, next ) => {
     let token;
     if ( req.headers.authorization && req.headers.authorization.startsWith( 'Bearer' ) ) {
         try {
@@ -25,4 +25,4 @@ const chechAuth = async ( req, res, next ) => {
     next();
 };
 
-export default chechAuth;
+export default checkAuth;

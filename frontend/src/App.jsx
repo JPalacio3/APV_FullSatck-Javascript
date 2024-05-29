@@ -8,10 +8,10 @@ import { Registrar } from './paginas/Registrar';
 import { OlvidePassword } from './paginas/OlvidePassword';
 import { ConfirmarCuenta } from './paginas/ConfirmarCuenta';
 import { NuevoPassword } from './paginas/NuevoPassword';
+import { AdministrarPacientes } from './paginas/AdministrarPacientes';
 import { EditarPerfil } from './paginas/EditarPerfil';
 import { CambiarPassword } from './paginas/CambiarPassword';
 
-import { AdministrarPacientes } from './paginas/AdministrarPacientes';
 
 import { AuthProvider } from './context/AuthProvider';
 import { PacientesProvider } from './context/PacientesProvider';

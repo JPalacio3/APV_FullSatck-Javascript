@@ -5,11 +5,12 @@ import useAuth from '../hooks/useAuth';
 import clienteAxios from '../config/axios';
 
 export const Login = () => {
+    const { setAuth } = useAuth();
+
     const [ email, setEmail ] = useState( '' );
     const [ password, setPassword ] = useState( '' );
     const [ alerta, setAlerta ] = useState( {} );
 
-    const { setAuth } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async ( e ) => {

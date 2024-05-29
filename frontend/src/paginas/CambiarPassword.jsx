@@ -7,8 +7,6 @@ export const CambiarPassword = () => {
 
     const { guardarPassword } = useAuth();
 
-
-
     const [ alerta, setAlerta ] = useState( {} );
     const [ password, setPassword ] = useState( {
         pwd_actual: '',
