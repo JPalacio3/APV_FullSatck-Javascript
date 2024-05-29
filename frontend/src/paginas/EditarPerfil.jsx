@@ -113,7 +113,6 @@ export const EditarPerfil = () => {
                             value="Guardar Cambios"
                             className="bg-indigo-700 px-10 py-3 font-bold text-white rounded-lg uppercase w-full mt-5"
                         />
-
                     </form>
                 </div>
             </div>
